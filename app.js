@@ -234,8 +234,12 @@ function updateBreakdown(breakdown) {
                             </div>
                             <div class="commitment-drum-details">
                                 <div class="commitment-detail-row">
-                                    <span>Used:</span>
+                                    <span>Used by ${item.name}:</span>
                                     <span class="commitment-value">${formatCurrency(item.commitmentUsed)}</span>
+                                </div>
+                                <div class="commitment-detail-row">
+                                    <span>Total Used:</span>
+                                    <span class="commitment-value">${formatCurrency(item.commitmentUsedSoFar)}</span>
                                 </div>
                                 <div class="commitment-detail-row">
                                     <span>Remaining:</span>
