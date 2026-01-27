@@ -306,7 +306,7 @@ input[type="range"]::-moz-range-thumb:hover {
 
 .savings-grid {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(4, 1fr);
     gap: var(--spacing-lg);
 }
 
@@ -327,7 +327,6 @@ input[type="range"]::-moz-range-thumb:hover {
 
 .savings-item.highlight {
     background: linear-gradient(135deg, var(--accent-green-light) 0%, var(--primary-blue-light) 100%);
-    grid-column: 1 / -1;
 }
 
 .savings-item.highlight:hover {
