@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Calculate potential savings with usage commitment discounts across multiple products">
+    <title>Commitment Savings Calculator</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>Commitment Savings Calculator</h1>
+            <p class="subtitle">Visualize your potential savings with usage commitments</p>
+        </header>
+
+        <div class="main-grid">
+            <!-- Product Consumption Section -->
+            <section class="card product-section">
+                <h2>Monthly Product Consumption</h2>
+                <p class="section-description">Enter your current monthly spend for each product</p>
+
+                <div class="product-inputs">
+                    <div class="product-input-group">
+                        <label for="product1">
+                            <span class="product-name">Product 1</span>
+                            <span class="discount-badge" id="discount1">18% discount</span>
+                        </label>
+                        <div class="input-wrapper">
+                            <span class="currency-symbol">$</span>
+                            <input type="number" id="product1" value="250000" min="0" step="1000">
+                        </div>
+                    </div>
+
+                    <div class="product-input-group">
+                        <label for="product2">
+                            <span class="product-name">Product 2</span>
+                            <span class="discount-badge" id="discount2">20% discount</span>
+                        </label>
+                        <div class="input-wrapper">
+                            <span class="currency-symbol">$</span>
+                            <input type="number" id="product2" value="100000" min="0" step="1000">
+                        </div>
+                    </div>
+
+                    <div class="product-input-group">
+                        <label for="product3">
+                            <span class="product-name">Product 3</span>
+                            <span class="discount-badge" id="discount3">27% discount</span>
+                        </label>
+                        <div class="input-wrapper">
+                            <span class="currency-symbol">$</span>
+                            <input type="number" id="product3" value="100000" min="0" step="1000">
+                        </div>
+                    </div>
+
+                    <div class="product-input-group">
+                        <label for="product4">
+                            <span class="product-name">Product 4</span>
+                            <span class="discount-badge" id="discount4">35% discount</span>
+                        </label>
+                        <div class="input-wrapper">
+                            <span class="currency-symbol">$</span>
+                            <input type="number" id="product4" value="50000" min="0" step="1000">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="total-consumption">
+                    <span>Total Monthly Consumption:</span>
+                    <span class="total-amount" id="totalConsumption">$500,000</span>
+                </div>
+            </section>
+
+            <!-- Commitment Section -->
+            <section class="card commitment-section">
+                <h2>Commitment Amount</h2>
+                <p class="section-description">Set your monthly commitment to unlock discounts</p>
+
+                <div class="commitment-input-group">
+                    <div class="input-wrapper">
+                        <span class="currency-symbol">$</span>
+                        <input type="number" id="commitmentAmount" value="300000" min="0" step="10000">
+                    </div>
+                    <input type="range" id="commitmentSlider" min="0" max="500000" value="300000" step="10000">
+                </div>
+
+                <div class="commitment-percentage">
+                    <span id="commitmentPercent">60%</span> of total consumption
+                </div>
+            </section>
+
+            <!-- Discount Configuration Section -->
+            <section class="card discount-config-section">
+                <h2>Discount Configuration</h2>
+                <p class="section-description">Customize discount rates for each product</p>
+
+                <div class="discount-inputs">
+                    <div class="discount-input-group">
+                        <label for="discountRate1">Product 1 Discount</label>
+                        <div class="input-wrapper">
+                            <input type="number" id="discountRate1" value="18" min="0" max="100" step="0.1">
+                            <span class="percent-symbol">%</span>
+                        </div>
+                    </div>
+
+                    <div class="discount-input-group">
+                        <label for="discountRate2">Product 2 Discount</label>
+                        <div class="input-wrapper">
+                            <input type="number" id="discountRate2" value="20" min="0" max="100" step="0.1">
+                            <span class="percent-symbol">%</span>
+                        </div>
+                    </div>
+
+                    <div class="discount-input-group">
+                        <label for="discountRate3">Product 3 Discount</label>
+                        <div class="input-wrapper">
+                            <input type="number" id="discountRate3" value="27" min="0" max="100" step="0.1">
+                            <span class="percent-symbol">%</span>
+                        </div>
+                    </div>
+
+                    <div class="discount-input-group">
+                        <label for="discountRate4">Product 4 Discount</label>
+                        <div class="input-wrapper">
+                            <input type="number" id="discountRate4" value="35" min="0" max="100" step="0.1">
+                            <span class="percent-symbol">%</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Savings Summary Section -->
+            <section class="card savings-section">
+                <h2>Savings Summary</h2>
+
+                <div class="savings-grid">
+                    <div class="savings-item highlight">
+                        <span class="savings-label">Monthly Savings</span>
+                        <span class="savings-value" id="monthlySavings">$0</span>
+                    </div>
+
+                    <div class="savings-item">
+                        <span class="savings-label">Cost Without Commitment</span>
+                        <span class="savings-value" id="costWithout">$0</span>
+                    </div>
+
+                    <div class="savings-item">
+                        <span class="savings-label">Cost With Commitment</span>
+                        <span class="savings-value" id="costWith">$0</span>
+                    </div>
+
+                    <div class="savings-item">
+                        <span class="savings-label">Savings Percentage</span>
+                        <span class="savings-value" id="savingsPercent">0%</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Breakdown Section -->
+
+            <section class="card breakdown-section">
+                <h2>Cost Breakdown</h2>
+                <p class="section-description">How your commitment is allocated (highest discount first)</p>
+
+                <div id="breakdownDetails" class="breakdown-details">
+                    <!-- Dynamically populated -->
+                </div>
+            </section>
+
+            <!-- Scenario Comparison Section -->
+            <section class="card scenario-section">
+                <h2>💡 Consumption Shifting Analysis</h2>
+                <p class="section-description">See how shifting consumption to higher-discount products could increase
+                    your savings</p>
+
+                <div class="scenario-toggle">
+                    <button id="generateScenario" class="scenario-button">Generate Optimized Scenario</button>
+                </div>
+
+                <div id="scenarioComparison" class="scenario-comparison hidden">
+                    <div class="scenario-alert">
+                        <strong>⚠️ Strategic Insight:</strong> The discount structure creates an incentive to shift
+                        consumption from low-discount to high-discount products.
+                    </div>
+
+                    <div class="scenario-grid">
+                        <div class="scenario-card current">
+                            <h3>Current Scenario</h3>
+                            <div class="scenario-details" id="currentScenario">
+                                <!-- Dynamically populated -->
+                            </div>
+                        </div>
+
+                        <div class="scenario-card optimized">
+                            <h3>Optimized Scenario</h3>
+                            <div class="scenario-details" id="optimizedScenario">
+                                <!-- Dynamically populated -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="scenario-impact">
+                        <div class="impact-header">
+                            <span class="impact-label">Additional Savings Potential</span>
+                            <span class="impact-value" id="additionalSavings">$0</span>
+                        </div>
+                        <p class="impact-description" id="impactDescription"></p>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+
+</html>
