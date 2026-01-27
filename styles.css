@@ -503,27 +503,27 @@ input[type="range"]::-moz-range-thumb:hover {
     flex: 1;
     display: flex;
     flex-direction: column;
-    gap: var(--spacing-sm);
+    gap: 0.375rem;
 }
 
 .commitment-detail-row {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: var(--spacing-sm);
+    padding: 0.375rem 0.625rem;
     background: var(--bg-card);
     border-radius: var(--radius-sm);
     border: 1px solid var(--border-color);
 }
 
 .commitment-detail-row span:first-child {
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     color: var(--text-secondary);
     font-weight: 500;
 }
 
 .commitment-value {
-    font-size: 1rem;
+    font-size: 0.95rem;
     font-weight: 700;
     color: var(--primary-blue);
 }
