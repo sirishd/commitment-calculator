@@ -420,6 +420,115 @@ input[type="range"]::-moz-range-thumb:hover {
     color: var(--text-primary);
 }
 
+/* Commitment Drum Visualization */
+.commitment-tracker {
+    grid-column: 1 / -1;
+}
+
+.commitment-drum {
+    display: flex;
+    gap: var(--spacing-lg);
+    align-items: center;
+    margin-top: var(--spacing-sm);
+}
+
+.commitment-drum-container {
+    position: relative;
+    width: 80px;
+    height: 120px;
+    background: var(--bg-primary);
+    border: 3px solid var(--primary-blue);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    display: flex;
+    align-items: flex-end;
+    box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.commitment-drum-fill {
+    width: 100%;
+    background: linear-gradient(180deg,
+            hsl(220, 85%, 70%) 0%,
+            var(--primary-blue) 50%,
+            hsl(220, 85%, 45%) 100%);
+    transition: height 0.5s ease;
+    position: relative;
+}
+
+.commitment-drum-fill::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 8px;
+    background: linear-gradient(90deg,
+            transparent 0%,
+            rgba(255, 255, 255, 0.3) 50%,
+            transparent 100%);
+    animation: wave 2s ease-in-out infinite;
+}
+
+@keyframes wave {
+
+    0%,
+    100% {
+        transform: translateX(-20px);
+        opacity: 0.5;
+    }
+
+    50% {
+        transform: translateX(20px);
+        opacity: 0.8;
+    }
+}
+
+.commitment-drum-label {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    background: rgba(255, 255, 255, 0.95);
+    padding: 0.25rem 0.5rem;
+    border-radius: var(--radius-sm);
+    white-space: nowrap;
+    z-index: 1;
+    box-shadow: var(--shadow-sm);
+}
+
+.commitment-drum-details {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+}
+
+.commitment-detail-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--spacing-sm);
+    background: var(--bg-card);
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border-color);
+}
+
+.commitment-detail-row span:first-child {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    font-weight: 500;
+}
+
+.commitment-value {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--primary-blue);
+}
+
+
 /* Animations */
 @keyframes fadeInDown {
     from {

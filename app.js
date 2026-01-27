@@ -70,9 +70,12 @@ function calculateSavings() {
 
     // Apply commitment bucket from highest to lowest discount
     let remainingCommitment = commitment;
+    let commitmentUsedSoFar = 0;
     const breakdown = [];
 
     sortedProducts.forEach(product => {
+        const commitmentBefore = remainingCommitment;
+
         if (product.consumption === 0) {
             breakdown.push({
                 ...product,
@@ -81,7 +84,10 @@ function calculateSavings() {
                 discountedCost: 0,
                 normalCost: 0,
                 totalCost: 0,
-                savings: 0
+                savings: 0,
+                commitmentUsed: 0,
+                commitmentRemaining: remainingCommitment,
+                commitmentUsedSoFar: commitmentUsedSoFar
             });
             return;
         }
@@ -95,6 +101,9 @@ function calculateSavings() {
         const totalCost = discountedCost + normalCost;
         const savings = product.consumption - totalCost;
 
+        remainingCommitment -= discountedAmount;
+        commitmentUsedSoFar += discountedAmount;
+
         breakdown.push({
             ...product,
             discountedAmount,
@@ -102,10 +111,12 @@ function calculateSavings() {
             discountedCost,
             normalCost,
             totalCost,
-            savings
+            savings,
+            commitmentUsed: discountedAmount,
+            commitmentRemaining: remainingCommitment,
+            commitmentUsedSoFar: commitmentUsedSoFar,
+            commitmentBefore: commitmentBefore
         });
-
-        remainingCommitment -= discountedAmount;
     });
 
     // Calculate total cost with commitment
@@ -162,6 +173,9 @@ function updateBreakdown(breakdown) {
     // Display breakdown in discount application order (highest to lowest discount)
     const sortedBreakdown = [...breakdown].sort((a, b) => b.discount - a.discount);
 
+    // Get total commitment for percentage calculations
+    const totalCommitment = parseFloat(elements.commitmentAmount.value) || 0;
+
     elements.breakdownDetails.innerHTML = sortedBreakdown.map(item => {
         if (item.consumption === 0) {
             return `
@@ -179,6 +193,10 @@ function updateBreakdown(breakdown) {
                 </div>
             `;
         }
+
+        // Calculate percentage of commitment remaining
+        const remainingPercent = totalCommitment > 0 ? (item.commitmentRemaining / totalCommitment) * 100 : 0;
+        const usedPercent = 100 - remainingPercent;
 
         return `
             <div class="breakdown-item">
@@ -206,6 +224,25 @@ function updateBreakdown(breakdown) {
                     <div class="breakdown-detail">
                         <span class="breakdown-detail-label">Savings</span>
                         <span class="breakdown-detail-value" style="color: var(--accent-green);">${formatCurrency(item.savings)}</span>
+                    </div>
+                    <div class="breakdown-detail commitment-tracker">
+                        <span class="breakdown-detail-label">Commitment Status</span>
+                        <div class="commitment-drum">
+                            <div class="commitment-drum-container">
+                                <div class="commitment-drum-fill" style="height: ${remainingPercent}%"></div>
+                                <div class="commitment-drum-label">${formatPercent(remainingPercent)} left</div>
+                            </div>
+                            <div class="commitment-drum-details">
+                                <div class="commitment-detail-row">
+                                    <span>Used:</span>
+                                    <span class="commitment-value">${formatCurrency(item.commitmentUsed)}</span>
+                                </div>
+                                <div class="commitment-detail-row">
+                                    <span>Remaining:</span>
+                                    <span class="commitment-value">${formatCurrency(item.commitmentRemaining)}</span>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
