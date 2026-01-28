@@ -24,15 +24,21 @@ const elements = {
     totalConsumption: document.getElementById('totalConsumption'),
     commitmentPercent: document.getElementById('commitmentPercent'),
     monthlySavings: document.getElementById('monthlySavings'),
+    annualSavings: document.getElementById('annualSavings'),
     costWithout: document.getElementById('costWithout'),
     costWith: document.getElementById('costWith'),
     savingsPercent: document.getElementById('savingsPercent'),
+    roiValue: document.getElementById('roiValue'),
+    effectiveDiscountRate: document.getElementById('effectiveDiscountRate'),
     breakdownDetails: document.getElementById('breakdownDetails'),
     discount1: document.getElementById('discount1'),
     discount2: document.getElementById('discount2'),
     discount3: document.getElementById('discount3'),
     discount4: document.getElementById('discount4')
 };
+
+// Chart instance
+let savingsTrendChart = null;
 
 // Utility Functions
 function formatCurrency(amount) {
@@ -147,23 +153,31 @@ function updateUI() {
     elements.commitmentPercent.textContent = formatPercent(results.commitmentPercent);
 
     // Update savings summary
-    elements.monthlySavings.textContent = formatCurrency(results.totalSavings);
+    const monthlySavings = results.totalSavings;
+    const annualSavings = monthlySavings * 12;
+
+    elements.monthlySavings.textContent = formatCurrency(monthlySavings);
+    elements.annualSavings.textContent = formatCurrency(annualSavings);
     elements.costWithout.textContent = formatCurrency(results.costWithout);
     elements.costWith.textContent = formatCurrency(results.costWith);
     elements.savingsPercent.textContent = formatPercent(results.savingsPercent);
+
+    // Calculate and update ROI metrics
+    const commitment = parseFloat(elements.commitmentAmount.value) || 0;
+    const annualCommitment = commitment * 12;
+    const roi = annualCommitment > 0 ? (annualSavings / annualCommitment) * 100 : 0;
+
+    // Calculate effective discount rate (weighted average)
+    const effectiveDiscount = calculateEffectiveDiscountRate(results.breakdown, commitment);
+
+    elements.roiValue.textContent = formatPercent(roi);
+    elements.effectiveDiscountRate.textContent = formatPercent(effectiveDiscount);
 
     // Update discount badges
     elements.discount1.textContent = `${elements.discountRate1.value}% discount`;
     elements.discount2.textContent = `${elements.discountRate2.value}% discount`;
     elements.discount3.textContent = `${elements.discountRate3.value}% discount`;
     elements.discount4.textContent = `${elements.discountRate4.value}% discount`;
-
-    // Update commitment slider max and background
-    const maxCommitment = results.totalConsumption;
-    elements.commitmentSlider.max = maxCommitment;
-
-    const sliderPercent = maxCommitment > 0 ? (results.commitment / maxCommitment) * 100 : 0;
-    elements.commitmentSlider.style.background = `linear-gradient(to right, var(--primary-blue) 0%, var(--primary-blue) ${sliderPercent}%, var(--border-color) ${sliderPercent}%, var(--border-color) 100%)`;
 
     // Update breakdown
     updateBreakdown(results.breakdown);
@@ -433,10 +447,124 @@ function displayScenario(elementId, products, results, comparison) {
     element.innerHTML = html;
 }
 
+// Calculate effective discount rate (weighted average based on commitment allocation)
+function calculateEffectiveDiscountRate(breakdown, commitment) {
+    if (commitment === 0) return 0;
+
+    let totalDiscountedAmount = 0;
+    let weightedDiscount = 0;
+
+    breakdown.forEach(item => {
+        if (item.discountedAmount > 0) {
+            totalDiscountedAmount += item.discountedAmount;
+            weightedDiscount += item.discountedAmount * item.discount;
+        }
+    });
+
+    return totalDiscountedAmount > 0 ? weightedDiscount / totalDiscountedAmount : 0;
+}
+
+// Update commitment slider
+function updateCommitmentSlider(totalConsumption) {
+    const commitment = parseFloat(elements.commitmentAmount.value) || 0;
+    const maxCommitment = totalConsumption;
+    elements.commitmentSlider.max = maxCommitment;
+
+    const sliderPercent = maxCommitment > 0 ? (commitment / maxCommitment) * 100 : 0;
+    elements.commitmentSlider.style.background = `linear-gradient(to right, var(--primary-blue) 0%, var(--primary-blue) ${sliderPercent}%, var(--border-color) ${sliderPercent}%, var(--border-color) 100%)`;
+}
+
+// Initialize savings trend chart
+function initSavingsTrendChart() {
+    const ctx = document.getElementById('savingsTrendChart').getContext('2d');
+
+    savingsTrendChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'],
+            datasets: [{
+                label: 'Monthly Savings',
+                data: new Array(12).fill(0),
+                borderColor: 'hsl(220, 85%, 60%)',
+                backgroundColor: 'hsla(220, 85%, 60%, 0.1)',
+                fill: true,
+                tension: 0.4,
+                pointRadius: 4,
+                pointHoverRadius: 6,
+                pointBackgroundColor: 'hsl(220, 85%, 60%)',
+                pointBorderColor: '#fff',
+                pointBorderWidth: 2
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    display: false
+                },
+                tooltip: {
+                    backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                    padding: 12,
+                    titleFont: {
+                        size: 14
+                    },
+                    bodyFont: {
+                        size: 13
+                    },
+                    callbacks: {
+                        label: function (context) {
+                            return 'Savings: ' + formatCurrency(context.parsed.y);
+                        }
+                    }
+                }
+            },
+            scales: {
+                x: {
+                    title: {
+                        display: true,
+                        text: 'Month',
+                        font: {
+                            size: 12
+                        }
+                    },
+                    grid: {
+                        display: false
+                    }
+                },
+                y: {
+                    beginAtZero: true,
+                    ticks: {
+                        callback: function (value) {
+                            return '$' + (value / 1000).toFixed(0) + 'K';
+                        }
+                    },
+                    grid: {
+                        color: 'rgba(0, 0, 0, 0.05)'
+                    }
+                }
+            }
+        }
+    });
+}
+
+// Update savings trend chart
+function updateSavingsTrendChart(monthlySavings) {
+    if (!savingsTrendChart) {
+        initSavingsTrendChart();
+    }
+
+    // Update all 12 months with the same monthly savings value
+    const data = new Array(12).fill(monthlySavings);
+    savingsTrendChart.data.datasets[0].data = data;
+    savingsTrendChart.update('none'); // 'none' for no animation on update
+}
+
 
 // Initialize
 function init() {
     setupEventListeners();
+    initSavingsTrendChart();
     updateUI();
 }
 
