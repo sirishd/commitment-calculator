@@ -195,8 +195,23 @@
                 <h2>Cost Breakdown</h2>
                 <p class="section-description">How your commitment is allocated (highest discount first)</p>
 
-                <div id="breakdownDetails" class="breakdown-details">
-                    <!-- Dynamically populated -->
+                <div class="breakdown-table-container">
+                    <table class="breakdown-table" id="breakdownTable">
+                        <thead>
+                            <tr>
+                                <th>Product</th>
+                                <th>Consumption</th>
+                                <th>Discounted Amount</th>
+                                <th>Normal Rate Amount</th>
+                                <th>Total Cost</th>
+                                <th>Savings</th>
+                                <th class="expand-col"></th>
+                            </tr>
+                        </thead>
+                        <tbody id="breakdownTableBody">
+                            <!-- Dynamically populated -->
+                        </tbody>
+                    </table>
                 </div>
             </section>
 

@@ -183,6 +183,7 @@ function updateUI() {
     updateBreakdown(results.breakdown);
 }
 
+
 function updateBreakdown(breakdown) {
     // Display breakdown in discount application order (highest to lowest discount)
     const sortedBreakdown = [...breakdown].sort((a, b) => b.discount - a.discount);
@@ -190,57 +191,34 @@ function updateBreakdown(breakdown) {
     // Get total commitment for percentage calculations
     const totalCommitment = parseFloat(elements.commitmentAmount.value) || 0;
 
-    elements.breakdownDetails.innerHTML = sortedBreakdown.map(item => {
-        if (item.consumption === 0) {
-            return `
-                <div class="breakdown-item">
-                    <div class="breakdown-header">
-                        <span class="breakdown-product">${item.name}</span>
-                        <span class="breakdown-discount">${item.discount}% discount</span>
-                    </div>
-                    <div class="breakdown-details-grid">
-                        <div class="breakdown-detail">
-                            <span class="breakdown-detail-label">Consumption</span>
-                            <span class="breakdown-detail-value">${formatCurrency(0)}</span>
-                        </div>
-                    </div>
-                </div>
-            `;
-        }
+    const tableBody = document.getElementById('breakdownTableBody');
 
-        // Calculate percentage of commitment remaining
+    tableBody.innerHTML = sortedBreakdown.map((item, index) => {
         const remainingPercent = totalCommitment > 0 ? (item.commitmentRemaining / totalCommitment) * 100 : 0;
-        const usedPercent = 100 - remainingPercent;
+        const rowId = `breakdown-row-${index}`;
+        const expandedRowId = `breakdown-expanded-${index}`;
 
         return `
-            <div class="breakdown-item">
-                <div class="breakdown-header">
-                    <span class="breakdown-product">${item.name}</span>
-                    <span class="breakdown-discount">${item.discount}% discount</span>
-                </div>
-                <div class="breakdown-details-grid">
-                    <div class="breakdown-detail">
-                        <span class="breakdown-detail-label">Total Consumption</span>
-                        <span class="breakdown-detail-value">${formatCurrency(item.consumption)}</span>
+            <tr class="breakdown-row" data-row-id="${rowId}" onclick="toggleBreakdownRow('${expandedRowId}', this)">
+                <td>
+                    <div class="product-cell">
+                        <span class="product-name">${item.name}</span>
+                        <span class="product-discount">${item.discount}% discount</span>
                     </div>
-                    <div class="breakdown-detail">
-                        <span class="breakdown-detail-label">Discounted Amount</span>
-                        <span class="breakdown-detail-value">${formatCurrency(item.discountedAmount)}</span>
-                    </div>
-                    <div class="breakdown-detail">
-                        <span class="breakdown-detail-label">Normal Rate Amount</span>
-                        <span class="breakdown-detail-value">${formatCurrency(item.normalAmount)}</span>
-                    </div>
-                    <div class="breakdown-detail">
-                        <span class="breakdown-detail-label">Total Cost</span>
-                        <span class="breakdown-detail-value">${formatCurrency(item.totalCost)}</span>
-                    </div>
-                    <div class="breakdown-detail">
-                        <span class="breakdown-detail-label">Savings</span>
-                        <span class="breakdown-detail-value" style="color: var(--accent-green);">${formatCurrency(item.savings)}</span>
-                    </div>
-                    <div class="breakdown-detail commitment-tracker">
-                        <span class="breakdown-detail-label">Commitment Status</span>
+                </td>
+                <td class="number-cell">${formatCurrency(item.consumption)}</td>
+                <td class="number-cell">${formatCurrency(item.discountedAmount)}</td>
+                <td class="number-cell">${formatCurrency(item.normalAmount)}</td>
+                <td class="number-cell">${formatCurrency(item.totalCost)}</td>
+                <td class="number-cell savings-cell">${formatCurrency(item.savings)}</td>
+                <td class="expand-cell">
+                    <span class="expand-icon">▼</span>
+                </td>
+            </tr>
+            <tr class="breakdown-expanded-row" id="${expandedRowId}" style="display: none;">
+                <td colspan="7">
+                    <div class="expanded-content">
+                        <div class="commitment-status-header">Commitment Status</div>
                         <div class="commitment-drum">
                             <div class="commitment-drum-container">
                                 <div class="commitment-drum-fill" style="height: ${remainingPercent}%"></div>
@@ -262,11 +240,28 @@ function updateBreakdown(breakdown) {
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
+                </td>
+            </tr>
         `;
     }).join('');
 }
+
+// Toggle expanded row function
+function toggleBreakdownRow(expandedRowId, clickedRow) {
+    const expandedRow = document.getElementById(expandedRowId);
+    const expandIcon = clickedRow.querySelector('.expand-icon');
+
+    if (expandedRow.style.display === 'none') {
+        expandedRow.style.display = 'table-row';
+        expandIcon.textContent = '▲';
+        clickedRow.classList.add('expanded');
+    } else {
+        expandedRow.style.display = 'none';
+        expandIcon.textContent = '▼';
+        clickedRow.classList.remove('expanded');
+    }
+}
+
 
 // Event Listeners
 function setupEventListeners() {
