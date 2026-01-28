@@ -181,6 +181,12 @@ function updateUI() {
 
     // Update breakdown
     updateBreakdown(results.breakdown);
+
+    // Update commitment slider
+    updateCommitmentSlider(results.totalConsumption);
+
+    // Update chart
+    updateSavingsTrendChart(monthlySavings);
 }
 
 
