@@ -207,23 +207,14 @@ body {
     font-size: 1.5rem;
 }
 
-/* Commitment Section */
-.commitment-section {
+/* Commitment and Savings Row */
+.commitment-savings-row {
     grid-column: 1 / -1;
-}
-
-.commitment-flow {
     display: grid;
-    grid-template-columns: 1fr auto 400px;
-    gap: var(--spacing-xl);
-    align-items: center;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--spacing-lg);
 }
 
-.commitment-input-container {
-    display: flex;
-    flex-direction: column;
-    gap: var(--spacing-md);
-}
 
 .commitment-input-group {
     display: flex;
@@ -293,6 +284,7 @@ input[type="range"]::-moz-range-thumb:hover {
     font-size: 1rem;
     color: var(--text-secondary);
     font-weight: 500;
+    margin-top: var(--spacing-sm);
 }
 
 .commitment-percentage span {
@@ -301,40 +293,16 @@ input[type="range"]::-moz-range-thumb:hover {
     font-size: 1.125rem;
 }
 
-.commitment-arrow {
+/* Monthly Savings Card */
+.savings-display {
     display: flex;
     align-items: center;
     justify-content: center;
-    color: var(--primary-blue);
-    opacity: 0.6;
+    min-height: 150px;
 }
 
-.monthly-savings-highlight {
-    background: linear-gradient(135deg, var(--accent-green-light) 0%, var(--primary-blue-light) 100%);
-    border-radius: var(--radius-lg);
-    padding: var(--spacing-xl);
-    text-align: center;
-    border: 2px solid var(--accent-green);
-    box-shadow: var(--shadow-lg);
-    transition: all 0.3s ease;
-}
-
-.monthly-savings-highlight:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.15);
-}
-
-.savings-highlight-label {
-    font-size: 1rem;
-    color: var(--text-secondary);
-    font-weight: 600;
-    margin-bottom: var(--spacing-sm);
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-}
-
-.savings-highlight-value {
-    font-size: 3rem;
+.savings-amount {
+    font-size: 3.5rem;
     font-weight: 800;
     color: var(--accent-green);
     line-height: 1;

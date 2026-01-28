@@ -119,39 +119,36 @@
                 </div>
             </section>
 
-            <!-- Commitment Section (THIRD) -->
-            <section class="card commitment-section">
-                <h2>Commitment Amount</h2>
-                <p class="section-description">Set your monthly commitment to unlock discounts</p>
+            <!-- Commitment and Savings Row -->
+            <div class="commitment-savings-row">
+                <!-- Commitment Amount Card -->
+                <section class="card commitment-card">
+                    <h2>Commitment Amount</h2>
+                    <p class="section-description">Set your monthly commitment to unlock discounts</p>
 
-                <div class="commitment-flow">
-                    <div class="commitment-input-container">
-                        <div class="commitment-input-group">
-                            <div class="input-wrapper">
-                                <span class="currency-symbol">$</span>
-                                <input type="number" id="commitmentAmount" value="300000" min="0" step="10000">
-                            </div>
-                            <input type="range" id="commitmentSlider" min="0" max="500000" value="300000" step="10000">
+                    <div class="commitment-input-group">
+                        <div class="input-wrapper">
+                            <span class="currency-symbol">$</span>
+                            <input type="number" id="commitmentAmount" value="300000" min="0" step="10000">
                         </div>
-
-                        <div class="commitment-percentage">
-                            <span id="commitmentPercent">60%</span> of total consumption
-                        </div>
+                        <input type="range" id="commitmentSlider" min="0" max="500000" value="300000" step="10000">
                     </div>
 
-                    <div class="commitment-arrow">
-                        <svg width="60" height="40" viewBox="0 0 60 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M5 20 L45 20 M45 20 L35 10 M45 20 L35 30" stroke="currentColor" stroke-width="3"
-                                stroke-linecap="round" stroke-linejoin="round" />
-                        </svg>
+                    <div class="commitment-percentage">
+                        <span id="commitmentPercent">60%</span> of total consumption
                     </div>
+                </section>
 
-                    <div class="monthly-savings-highlight">
-                        <div class="savings-highlight-label">Monthly Savings</div>
-                        <div class="savings-highlight-value" id="monthlySavingsHighlight">$0</div>
+                <!-- Monthly Savings Card -->
+                <section class="card monthly-savings-card">
+                    <h2>Monthly Savings</h2>
+                    <p class="section-description">Your estimated monthly savings with commitment</p>
+
+                    <div class="savings-display">
+                        <div class="savings-amount" id="monthlySavingsHighlight">$0</div>
                     </div>
-                </div>
-            </section>
+                </section>
+            </div>
 
 
             <!-- Savings Summary Section -->
