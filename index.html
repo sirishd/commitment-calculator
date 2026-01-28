@@ -141,50 +141,30 @@
             <section class="card savings-section">
                 <h2>Savings Summary</h2>
 
-                <div class="savings-container">
-                    <!-- Metrics Column -->
-                    <div class="savings-metrics">
-                        <div class="savings-item highlight">
-                            <span class="savings-label">Monthly Savings</span>
-                            <span class="savings-value" id="monthlySavings">$0</span>
-                        </div>
-
-                        <div class="savings-item">
-                            <span class="savings-label">Annual Savings</span>
-                            <span class="savings-value" id="annualSavings">$0</span>
-                        </div>
-
-                        <div class="savings-item">
-                            <span class="savings-label">Cost Without Commitment</span>
-                            <span class="savings-value" id="costWithout">$0</span>
-                        </div>
-
-                        <div class="savings-item">
-                            <span class="savings-label">Cost With Commitment</span>
-                            <span class="savings-value" id="costWith">$0</span>
-                        </div>
-
-                        <div class="savings-item">
-                            <span class="savings-label">Savings Percentage</span>
-                            <span class="savings-value" id="savingsPercent">0%</span>
-                        </div>
+                <div class="savings-metrics">
+                    <div class="savings-item highlight">
+                        <span class="savings-label">Monthly Savings</span>
+                        <span class="savings-value" id="monthlySavings">$0</span>
                     </div>
 
-                    <!-- Charts Column -->
-                    <div class="savings-charts">
-                        <div class="chart-container">
-                            <canvas id="savingsTrendChart"></canvas>
-                        </div>
-                        <div class="roi-metrics">
-                            <div class="roi-metric">
-                                <span class="roi-label">ROI</span>
-                                <span class="roi-value" id="roiValue">0%</span>
-                            </div>
-                            <div class="roi-metric">
-                                <span class="roi-label">Effective Discount Rate</span>
-                                <span class="roi-value" id="effectiveDiscountRate">0%</span>
-                            </div>
-                        </div>
+                    <div class="savings-item">
+                        <span class="savings-label">Annual Savings</span>
+                        <span class="savings-value" id="annualSavings">$0</span>
+                    </div>
+
+                    <div class="savings-item">
+                        <span class="savings-label">Cost Without Commitment</span>
+                        <span class="savings-value" id="costWithout">$0</span>
+                    </div>
+
+                    <div class="savings-item">
+                        <span class="savings-label">Cost With Commitment</span>
+                        <span class="savings-value" id="costWith">$0</span>
+                    </div>
+
+                    <div class="savings-item">
+                        <span class="savings-label">Savings Percentage</span>
+                        <span class="savings-value" id="savingsPercent">0%</span>
                     </div>
                 </div>
             </section>
@@ -200,11 +180,11 @@
                         <thead>
                             <tr>
                                 <th>Product</th>
-                                <th>Consumption</th>
-                                <th>Discounted Amount</th>
-                                <th>Normal Rate Amount</th>
-                                <th>Total Cost</th>
-                                <th>Savings</th>
+                                <th class="number-header">Consumption</th>
+                                <th class="number-header">Discounted Amount</th>
+                                <th class="number-header">Normal Rate Amount</th>
+                                <th class="number-header">Total Cost</th>
+                                <th class="number-header">Savings</th>
                                 <th class="expand-col"></th>
                             </tr>
                         </thead>
