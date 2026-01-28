@@ -124,16 +124,32 @@
                 <h2>Commitment Amount</h2>
                 <p class="section-description">Set your monthly commitment to unlock discounts</p>
 
-                <div class="commitment-input-group">
-                    <div class="input-wrapper">
-                        <span class="currency-symbol">$</span>
-                        <input type="number" id="commitmentAmount" value="300000" min="0" step="10000">
-                    </div>
-                    <input type="range" id="commitmentSlider" min="0" max="500000" value="300000" step="10000">
-                </div>
+                <div class="commitment-flow">
+                    <div class="commitment-input-container">
+                        <div class="commitment-input-group">
+                            <div class="input-wrapper">
+                                <span class="currency-symbol">$</span>
+                                <input type="number" id="commitmentAmount" value="300000" min="0" step="10000">
+                            </div>
+                            <input type="range" id="commitmentSlider" min="0" max="500000" value="300000" step="10000">
+                        </div>
 
-                <div class="commitment-percentage">
-                    <span id="commitmentPercent">60%</span> of total consumption
+                        <div class="commitment-percentage">
+                            <span id="commitmentPercent">60%</span> of total consumption
+                        </div>
+                    </div>
+
+                    <div class="commitment-arrow">
+                        <svg width="60" height="40" viewBox="0 0 60 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M5 20 L45 20 M45 20 L35 10 M45 20 L35 30" stroke="currentColor" stroke-width="3"
+                                stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                    </div>
+
+                    <div class="monthly-savings-highlight">
+                        <div class="savings-highlight-label">Monthly Savings</div>
+                        <div class="savings-highlight-value" id="monthlySavingsHighlight">$0</div>
+                    </div>
                 </div>
             </section>
 

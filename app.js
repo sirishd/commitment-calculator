@@ -158,6 +158,12 @@ function updateUI() {
     elements.costWith.textContent = formatCurrency(results.costWith);
     elements.savingsPercent.textContent = formatPercent(results.savingsPercent);
 
+    // Update monthly savings highlight in commitment section
+    const monthlySavingsHighlight = document.getElementById('monthlySavingsHighlight');
+    if (monthlySavingsHighlight) {
+        monthlySavingsHighlight.textContent = formatCurrency(monthlySavings);
+    }
+
     // Update discount badges
     elements.discount1.textContent = `${elements.discountRate1.value}% discount`;
     elements.discount2.textContent = `${elements.discountRate2.value}% discount`;
