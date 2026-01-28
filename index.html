@@ -22,7 +22,47 @@
         </header>
 
         <div class="main-grid">
-            <!-- Product Consumption Section -->
+            <!-- Discount Configuration Section (FIRST) -->
+            <section class="card discount-config-section">
+                <h2>Discount Configuration</h2>
+                <p class="section-description">Customize discount rates for each product</p>
+
+                <div class="discount-inputs">
+                    <div class="discount-input-group">
+                        <label for="discountRate1">Product 1 Discount</label>
+                        <div class="input-wrapper">
+                            <input type="number" id="discountRate1" value="18" min="0" max="100" step="0.1">
+                            <span class="percent-symbol">%</span>
+                        </div>
+                    </div>
+
+                    <div class="discount-input-group">
+                        <label for="discountRate2">Product 2 Discount</label>
+                        <div class="input-wrapper">
+                            <input type="number" id="discountRate2" value="20" min="0" max="100" step="0.1">
+                            <span class="percent-symbol">%</span>
+                        </div>
+                    </div>
+
+                    <div class="discount-input-group">
+                        <label for="discountRate3">Product 3 Discount</label>
+                        <div class="input-wrapper">
+                            <input type="number" id="discountRate3" value="27" min="0" max="100" step="0.1">
+                            <span class="percent-symbol">%</span>
+                        </div>
+                    </div>
+
+                    <div class="discount-input-group">
+                        <label for="discountRate4">Product 4 Discount</label>
+                        <div class="input-wrapper">
+                            <input type="number" id="discountRate4" value="35" min="0" max="100" step="0.1">
+                            <span class="percent-symbol">%</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Product Consumption Section (SECOND) -->
             <section class="card product-section">
                 <h2>Monthly Product Consumption</h2>
                 <p class="section-description">Enter your current monthly spend for each product</p>
@@ -79,7 +119,7 @@
                 </div>
             </section>
 
-            <!-- Commitment Section -->
+            <!-- Commitment Section (THIRD) -->
             <section class="card commitment-section">
                 <h2>Commitment Amount</h2>
                 <p class="section-description">Set your monthly commitment to unlock discounts</p>
@@ -97,45 +137,6 @@
                 </div>
             </section>
 
-            <!-- Discount Configuration Section -->
-            <section class="card discount-config-section">
-                <h2>Discount Configuration</h2>
-                <p class="section-description">Customize discount rates for each product</p>
-
-                <div class="discount-inputs">
-                    <div class="discount-input-group">
-                        <label for="discountRate1">Product 1 Discount</label>
-                        <div class="input-wrapper">
-                            <input type="number" id="discountRate1" value="18" min="0" max="100" step="0.1">
-                            <span class="percent-symbol">%</span>
-                        </div>
-                    </div>
-
-                    <div class="discount-input-group">
-                        <label for="discountRate2">Product 2 Discount</label>
-                        <div class="input-wrapper">
-                            <input type="number" id="discountRate2" value="20" min="0" max="100" step="0.1">
-                            <span class="percent-symbol">%</span>
-                        </div>
-                    </div>
-
-                    <div class="discount-input-group">
-                        <label for="discountRate3">Product 3 Discount</label>
-                        <div class="input-wrapper">
-                            <input type="number" id="discountRate3" value="27" min="0" max="100" step="0.1">
-                            <span class="percent-symbol">%</span>
-                        </div>
-                    </div>
-
-                    <div class="discount-input-group">
-                        <label for="discountRate4">Product 4 Discount</label>
-                        <div class="input-wrapper">
-                            <input type="number" id="discountRate4" value="35" min="0" max="100" step="0.1">
-                            <span class="percent-symbol">%</span>
-                        </div>
-                    </div>
-                </div>
-            </section>
 
             <!-- Savings Summary Section -->
             <section class="card savings-section">

@@ -110,9 +110,13 @@ body {
 }
 
 /* Product Inputs */
+.product-section {
+    grid-column: 1 / -1;
+}
+
 .product-inputs {
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
     gap: var(--spacing-lg);
 }
 
@@ -267,6 +271,10 @@ input[type="range"]::-moz-range-thumb:hover {
     box-shadow: var(--shadow-lg);
 }
 
+.commitment-section {
+    grid-column: 1 / -1;
+}
+
 .commitment-percentage {
     text-align: center;
     font-size: 1.125rem;
@@ -281,9 +289,13 @@ input[type="range"]::-moz-range-thumb:hover {
 }
 
 /* Discount Configuration */
+.discount-config-section {
+    grid-column: 1 / -1;
+}
+
 .discount-inputs {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(4, 1fr);
     gap: var(--spacing-md);
 }
 
