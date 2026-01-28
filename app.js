@@ -28,17 +28,13 @@ const elements = {
     costWithout: document.getElementById('costWithout'),
     costWith: document.getElementById('costWith'),
     savingsPercent: document.getElementById('savingsPercent'),
-    roiValue: document.getElementById('roiValue'),
-    effectiveDiscountRate: document.getElementById('effectiveDiscountRate'),
-    breakdownDetails: document.getElementById('breakdownDetails'),
     discount1: document.getElementById('discount1'),
     discount2: document.getElementById('discount2'),
     discount3: document.getElementById('discount3'),
     discount4: document.getElementById('discount4')
 };
 
-// Chart instance
-let savingsTrendChart = null;
+
 
 // Utility Functions
 function formatCurrency(amount) {
@@ -162,17 +158,6 @@ function updateUI() {
     elements.costWith.textContent = formatCurrency(results.costWith);
     elements.savingsPercent.textContent = formatPercent(results.savingsPercent);
 
-    // Calculate and update ROI metrics
-    const commitment = parseFloat(elements.commitmentAmount.value) || 0;
-    const annualCommitment = commitment * 12;
-    const roi = annualCommitment > 0 ? (annualSavings / annualCommitment) * 100 : 0;
-
-    // Calculate effective discount rate (weighted average)
-    const effectiveDiscount = calculateEffectiveDiscountRate(results.breakdown, commitment);
-
-    elements.roiValue.textContent = formatPercent(roi);
-    elements.effectiveDiscountRate.textContent = formatPercent(effectiveDiscount);
-
     // Update discount badges
     elements.discount1.textContent = `${elements.discountRate1.value}% discount`;
     elements.discount2.textContent = `${elements.discountRate2.value}% discount`;
@@ -184,9 +169,6 @@ function updateUI() {
 
     // Update commitment slider
     updateCommitmentSlider(results.totalConsumption);
-
-    // Update chart
-    updateSavingsTrendChart(monthlySavings);
 }
 
 
@@ -565,7 +547,6 @@ function updateSavingsTrendChart(monthlySavings) {
 // Initialize
 function init() {
     setupEventListeners();
-    initSavingsTrendChart();
     updateUI();
 }
 
