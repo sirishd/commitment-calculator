@@ -193,7 +193,7 @@ function updateBreakdown(breakdown) {
         const expandedRowId = `breakdown-expanded-${index}`;
 
         return `
-            <tr class="breakdown-row" data-row-id="${rowId}" onclick="toggleBreakdownRow('${expandedRowId}', this)">
+            <tr class="breakdown-row expanded" data-row-id="${rowId}" onclick="toggleBreakdownRow('${expandedRowId}', this)">
                 <td>
                     <div class="product-cell">
                         <span class="product-name">${item.name}</span>
@@ -206,10 +206,10 @@ function updateBreakdown(breakdown) {
                 <td class="number-cell">${formatCurrency(item.totalCost)}</td>
                 <td class="number-cell savings-cell">${formatCurrency(item.savings)}</td>
                 <td class="expand-cell">
-                    <span class="expand-icon">▼</span>
+                    <span class="expand-icon">▲</span>
                 </td>
             </tr>
-            <tr class="breakdown-expanded-row" id="${expandedRowId}" style="display: none;">
+            <tr class="breakdown-expanded-row" id="${expandedRowId}" style="display: table-row;">
                 <td colspan="7">
                     <div class="expanded-content">
                         <div class="commitment-status-header">Commitment Status</div>
